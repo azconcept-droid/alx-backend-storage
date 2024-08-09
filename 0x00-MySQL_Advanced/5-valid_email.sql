@@ -2,10 +2,10 @@
 -- only when the email has been changed.
 delimiter |;
 
-CREATE TRIGGER reset_attri AFTER INSERT ON orders
+CREATE TRIGGER reset_attri AFTER UPDATE ON users.email
   FOR EACH ROW
   BEGIN
-    UPDATE items SET quantity = quantity - NEW.number WHERE name = NEW.item_name;
+    UPDATE users SET valid_email = 0;
   END;
 |
 
