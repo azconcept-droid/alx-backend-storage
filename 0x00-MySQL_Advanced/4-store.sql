@@ -1,6 +1,6 @@
 -- creates a trigger that decreases the quantity of an item
 -- after adding a new order.
-delimiter |
+delimiter |;
 
 CREATE TRIGGER decr_quantity AFTER INSERT ON orders
   FOR EACH ROW
@@ -9,4 +9,4 @@ CREATE TRIGGER decr_quantity AFTER INSERT ON orders
   END;
 |
 
-delimiter ;
+delimiter ;|
