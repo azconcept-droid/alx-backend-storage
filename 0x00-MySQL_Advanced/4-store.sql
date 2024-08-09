@@ -3,5 +3,5 @@
 CREATE TRIGGER decr_quantity AFTER INSERT ON orders
 FOR EACH ROW
 BEGIN
-SET items.quantity = items.quantity - NEW.number;
+UPDATE items SET quantity = OLD.quantity - NEW.number;
 END
