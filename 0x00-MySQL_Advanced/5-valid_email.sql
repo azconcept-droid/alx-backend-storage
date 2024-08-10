@@ -5,7 +5,7 @@ delimiter |;
 CREATE TRIGGER reset_attri AFTER UPDATE ON users.email
   FOR EACH ROW
   BEGIN
-    UPDATE users SET valid_email = 0;
+    UPDATE users SET valid_email = 0 WHERE email = NEW.email;
   END;
 |
 
