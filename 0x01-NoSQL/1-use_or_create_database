@@ -1,0 +1,2 @@
+// use databases create if it doesn't exist
+use my_db
