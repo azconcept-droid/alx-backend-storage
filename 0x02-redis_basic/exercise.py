@@ -34,7 +34,17 @@ class Cache:
             return data
 
         if fn is int:
-            return int(data)
+            self.get_int(data)
 
         if fn is str:
-            return data.decode('utf8')
+            self.get_str(data)
+
+    def get_str(self, data):
+        """ Get string data """
+        if type(data) is str:
+            return data.decode('utf-8')
+
+    def get_int(self, data):
+        """ Get int data """
+        if type(data) in int:
+            return int(data)
