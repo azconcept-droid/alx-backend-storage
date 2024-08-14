@@ -3,7 +3,7 @@
 """
 import redis
 import uuid
-from typing import Any
+from typing import Union, Callable
 
 
 class Cache:
@@ -15,9 +15,15 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def store(self, data: Any) -> str:
-        """Store method taht store key in cache"""
+    def store(self, data: Union[bytes, str, int, float]) -> str:
+        """store the input data in Redis using
+        the random key and return the key"""
         key = str(uuid.uuid4())
         self._redis.set(key, data)
 
         return key
+
+    def get(self, key: str, fn: Callable = None):
+        """Get the value of a key in Redis"""
+
+        return None
