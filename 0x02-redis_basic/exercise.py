@@ -23,7 +23,8 @@ class Cache:
 
         return key
 
-    def get(self, key: str, fn: Callable = None) -> Union[str, int, bytes, float]:
+    def get(self, key: str,
+            fn: Callable = None) -> Union[str, int, bytes, float]:
         """Get the value of a key in Redis"""
         data = self._redis.get(key)
         if data is None:
@@ -34,6 +35,6 @@ class Cache:
 
         if fn is int:
             return int(data)
-        
+
         if fn is str:
             return data.decode('utf8')
