@@ -4,6 +4,15 @@
 import redis
 import uuid
 from typing import Union, Callable
+from functools import wraps
+
+def count_calls(fn: Callable) -> Callable:
+    """ count how many calls """
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        """wrapper"""
+        return fn(redis.Redis(), **kwargs)
+    return wrapper
 
 
 class Cache:
@@ -15,14 +24,18 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[bytes, str, int, float]) -> str:
         """store the input data in Redis using
         the random key and return the key"""
         key = str(uuid.uuid4())
         self._redis.set(key, data)
 
+        self.store.__qualname__ = key
+
         return key
 
+    @count_calls
     def get(self, key: str,
             fn: Callable = None) -> Union[str, int, bytes, float]:
         """Get the value of a key in Redis"""
